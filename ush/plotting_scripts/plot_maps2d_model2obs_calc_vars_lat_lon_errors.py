@@ -157,12 +157,12 @@ def draw_subplot_map(subplot_num, subplot_title, nsubplots,
     lat_formatter = LatitudeFormatter()
     ax_tmp.xaxis.set_major_formatter(lon_formatter)
     ax_tmp.yaxis.set_major_formatter(lat_formatter)
-    if ax_tmp.is_last_row() or \
+    if ax_tmp.get_subplotspec().is_last_row() or \
             (nsubplots % 2 != 0 and subplot_num == nsubplots - 2):
        ax_tmp.set_xlabel('Longitude')
     else:
         plt.setp(ax_tmp.get_xticklabels(), visible=False)
-    if ax_tmp.is_first_col():
+    if ax_tmp.get_subplotspec().is_first_col():
         ax_tmp.set_ylabel('Latitude', labelpad=2)
     else:
         plt.setp(ax_tmp.get_yticklabels(), visible=False)
@@ -512,11 +512,13 @@ for var_info_forcast_to_plot in var_info_forcast_to_plot_list:
                 obs_subplot_num, obs_subplot_title, nsubplots,
                 latlon_area
             )
+            ax_obs_ss = ax_obs.get_subplotspec()
         subplot_num = model_num
         subplot_title = model_plot_name+'-'+model_obtype
         ax, map_ax = draw_subplot_map(
             subplot_num, subplot_title, nsubplots, latlon_area
         )
+        ax_ss = ax.get_subplotspec()
         # Read data
         all_model_files_exist = True
         missing_file_list = []
@@ -656,7 +658,7 @@ for var_info_forcast_to_plot in var_info_forcast_to_plot_list:
                 model_data_lon = USWRF_sfc_data_lon
             if not obs_plotted:
                 print("Plotting "+model_obtype+" observations from "+model)
-                ax_obs_subplot_loc = str(ax_obs.rowNum)+','+str(ax_obs.colNum)
+                ax_obs_subplot_loc = str(ax_obs_ss.colspan.start)+','+str(ax_obs_ss.colspan.start)
                 ax_obs_plot_data = obs_calc_var
                 ax_obs_plot_data_lat = model_data_lat
                 ax_obs_plot_data_lon = model_data_lon
@@ -678,7 +680,7 @@ for var_info_forcast_to_plot in var_info_forcast_to_plot_list:
                 subplot_CF_dict[ax_obs_subplot_loc] = CF_ax_obs
                 obs_plotted = True
             print("Plotting "+model+" - "+model_obtype)
-            ax_subplot_loc = str(ax.rowNum)+','+str(ax.colNum)
+            ax_subplot_loc = str(ax_ss.rowspan.start)+','+str(ax_ss.colspan.start)
             ax_plot_data = (
                 model_calc_var - obs_calc_var
             )

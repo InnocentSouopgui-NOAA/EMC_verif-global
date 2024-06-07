@@ -103,6 +103,14 @@ elif [ $machine = S4 ]; then
     fi
     module use ${HOMEverif_global}/modulefiles
     module load emc_verif_global_s4
+    #
+#    module use /data/prod/jedi/spack-stack/spack-stack-1.6.0/envs/unified-env/install/modulefiles/Core
+#    module load stack-intel/2021.5.0
+#    module load stack-intel-oneapi-mpi/2021.5.0
+#    #
+#    module use "/data/prod/glopara/contrib/spack1.6/modulefiles"
+#    module load MET/9.1.3
+#    module load METplus/3.1.0
 elif [ $machine = JET ]; then
     source /apps/lmod/lmod/init/sh
     module use ${HOMEverif_global}/modulefiles
