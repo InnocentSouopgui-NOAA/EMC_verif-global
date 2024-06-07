@@ -658,7 +658,7 @@ for var_info_forcast_to_plot in var_info_forcast_to_plot_list:
                 model_data_lon = USWRF_sfc_data_lon
             if not obs_plotted:
                 print("Plotting "+model_obtype+" observations from "+model)
-                ax_obs_subplot_loc = str(ax_obs_ss.colspan.start)+','+str(ax_obs_ss.colspan.start)
+                ax_obs_subplot_loc = str(ax_obs_ss.rowspan.start)+','+str(ax_obs_ss.colspan.start)
                 ax_obs_plot_data = obs_calc_var
                 ax_obs_plot_data_lat = model_data_lat
                 ax_obs_plot_data_lon = model_data_lon
